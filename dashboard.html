@@ -5,16 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="dashboard-container">
     <header>
       <div class="logo">
-        <img src="imgs/Logo.jfif" alt="Logo">
+        <img src="img/Logo.jfif" alt="Logo">
       </div>
       <h1>Dashboard</h1>
     </header>
     <main>
+      <!-- Tarjetas -->
       <section class="card">
         <h2>Seguimiento de Tareas</h2>
         <ul>
@@ -34,7 +36,82 @@
         <p>Total de cuentas activas: <strong>120</strong></p>
         <p>Cuentas inactivas: <strong>15</strong></p>
       </section>
+
+      <!-- Tabla y Gráficos -->
+      <section class="table-section">
+        <h2>Estadísticas de Usuarios</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Mensajes Enviados</th>
+              <th>Respondidos</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Juan Pérez</td>
+              <td>15</td>
+              <td>13</td>
+              <td>Activo</td>
+            </tr>
+            <tr>
+              <td>María López</td>
+              <td>20</td>
+              <td>15</td>
+              <td>Activo</td>
+            </tr>
+            <tr>
+              <td>Pedro Ruiz</td>
+              <td>5</td>
+              <td>2</td>
+              <td>Inactivo</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="chart-section">
+        <h2>Gráficos de Actividad</h2>
+        <canvas id="activityChart"></canvas>
+      </section>
     </main>
   </div>
+
+  <script>
+    // Gráfico de actividad
+    const ctx = document.getElementById('activityChart').getContext('2d');
+    const activityChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Juan Pérez', 'María López', 'Pedro Ruiz'],
+        datasets: [
+          {
+            label: 'Mensajes Enviados',
+            data: [15, 20, 5],
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          },
+          {
+            label: 'Mensajes Respondidos',
+            data: [13, 15, 2],
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Mensajes Enviados vs Respondidos',
+          },
+        },
+      },
+    });
+  </script>
 </body>
 </html>
