@@ -1,117 +1,141 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunter Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    <header>
-      <div class="logo">
-        <img src="img/Logo.jfif" alt="Logo">
-      </div>
-      <h1>Dashboard</h1>
+    <header class="header">
+        <div class="logo">
+          <a href="index.html">
+            <img src="img/Logo.png" alt="Hunter Logo">
+          </a>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#overview">Resumen</a></li>
+                <li><a href="#messages">Mensajes</a></li>
+                <li><a href="#analytics">Analíticas</a></li>
+                <li><a href="#settings">Configuración</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-      <!-- Tarjetas -->
-      <section class="card">
-        <h2>Seguimiento de Tareas</h2>
-        <ul>
-          <li>Tarea 1: Completada ✅</li>
-          <li>Tarea 2: Pendiente ⏳</li>
-          <li>Tarea 3: En progreso 🛠️</li>
-        </ul>
-      </section>
-      <section class="card">
-        <h2>Mensajes Enviados</h2>
-        <p>Total: <strong>35</strong></p>
-        <p>Respondidos: <strong>28</strong></p>
-        <p>Pendientes: <strong>7</strong></p>
-      </section>
-      <section class="card">
-        <h2>Cuentas Activas</h2>
-        <p>Total de cuentas activas: <strong>120</strong></p>
-        <p>Cuentas inactivas: <strong>15</strong></p>
-      </section>
 
-      <!-- Tabla y Gráficos -->
-      <section class="table-section">
-        <h2>Estadísticas de Usuarios</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Mensajes Enviados</th>
-              <th>Respondidos</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Juan Pérez</td>
-              <td>15</td>
-              <td>13</td>
-              <td>Activo</td>
-            </tr>
-            <tr>
-              <td>María López</td>
-              <td>20</td>
-              <td>15</td>
-              <td>Activo</td>
-            </tr>
-            <tr>
-              <td>Pedro Ruiz</td>
-              <td>5</td>
-              <td>2</td>
-              <td>Inactivo</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+    <main class="dashboard">
+        <section id="overview" class="section overview">
+            <h2>Resumen</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Mensajes enviados</h3>
+                    <p>2,345</p>
+                </div>
+                <div class="card">
+                    <h3>Seguidores ganados</h3>
+                    <p>1,124</p>
+                </div>
+                <div class="card">
+                    <h3>Tasa de respuesta</h3>
+                    <p>78%</p>
+                </div>
+            </div>
+        </section>
 
-      <section class="chart-section">
-        <h2>Gráficos de Actividad</h2>
-        <canvas id="activityChart"></canvas>
-      </section>
+        <section id="messages" class="section messages">
+            <h2>Mensajes</h2>
+            <div class="message-controls">
+                <button class="btn">Enviar Mensajes</button>
+                <button class="btn">Importar Lista</button>
+            </div>
+            <table class="messages-table">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Mensaje</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@usuario1</td>
+                        <td>Hola, ¿cómo estás?</td>
+                        <td>Enviado</td>
+                        <td>15/01/2025</td>
+                    </tr>
+                    <tr>
+                        <td>@usuario2</td>
+                        <td>¡Gracias por seguirnos!</td>
+                        <td>Enviado</td>
+                        <td>14/01/2025</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="analytics" class="section analytics">
+            <h2>Analíticas</h2>
+            <div class="analytics-cards">
+                <div class="card">
+                    <h3>Mensajes por día</h3>
+                    <canvas id="messagesChart"></canvas>
+                </div>
+                <div class="card">
+                    <h3>Seguidores ganados</h3>
+                    <canvas id="followersChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="settings" class="section settings">
+            <h2>Configuración</h2>
+            <form class="settings-form">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" placeholder="@tu_usuario">
+
+                <label for="apiKey">Clave API</label>
+                <input type="text" id="apiKey" placeholder="Tu clave API">
+
+                <button class="btn">Guardar Cambios</button>
+            </form>
+        </section>
     </main>
-  </div>
 
-  <script>
-    // Gráfico de actividad
-    const ctx = document.getElementById('activityChart').getContext('2d');
-    const activityChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Juan Pérez', 'María López', 'Pedro Ruiz'],
-        datasets: [
-          {
-            label: 'Mensajes Enviados',
-            data: [15, 20, 5],
-            backgroundColor: 'rgba(54, 162, 235, 0.6)',
-          },
-          {
-            label: 'Mensajes Respondidos',
-            data: [13, 15, 2],
-            backgroundColor: 'rgba(75, 192, 192, 0.6)',
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'Mensajes Enviados vs Respondidos',
-          },
-        },
-      },
-    });
-  </script>
+    <footer class="footer">
+        <p>&copy; 2025 Hunter. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        // Example charts with Chart.js (optional dependency)
+        const ctxMessages = document.getElementById('messagesChart').getContext('2d');
+        const ctxFollowers = document.getElementById('followersChart').getContext('2d');
+
+        new Chart(ctxMessages, {
+            type: 'line',
+            data: {
+                labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+                datasets: [{
+                    label: 'Mensajes enviados',
+                    data: [120, 200, 300, 250, 400],
+                    borderColor: '#ff6347',
+                    fill: false
+                }]
+            }
+        });
+
+        new Chart(ctxFollowers, {
+            type: 'bar',
+            data: {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                datasets: [{
+                    label: 'Seguidores ganados',
+                    data: [50, 120, 300, 450],
+                    backgroundColor: '#ff6347'
+                }]
+            }
+        });
+    </script>
 </body>
 </html>
